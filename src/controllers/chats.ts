@@ -39,3 +39,11 @@ export const sendMessage = (req: Request, res: Response): void => {
     error: null
   });
 };
+
+export const patchMessage = (req: Request, res: Response): void => {
+  res.status(201).json({
+    success: true,
+    data: {},
+    error: null
+  });
+};
