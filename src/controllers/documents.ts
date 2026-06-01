@@ -9,7 +9,7 @@ export const uploadDocument = (req: Request, res: Response): void => {
 };
 
 export const uploadDocumentIngest = (req: Request, res: Response): void => {
-  res.status(201).json({
+  res.status(202).json({
     success: true,
     data: {},
     error: null
@@ -41,7 +41,7 @@ export const deleteDocument = (req: Request, res: Response): void => {
 };
 
 export const patchDocument = (req: Request, res: Response): void => {
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     data: {},
     error: null

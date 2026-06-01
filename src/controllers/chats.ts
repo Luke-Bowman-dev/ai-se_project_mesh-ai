@@ -41,7 +41,7 @@ export const sendMessage = (req: Request, res: Response): void => {
 };
 
 export const patchMessage = (req: Request, res: Response): void => {
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     data: {},
     error: null
