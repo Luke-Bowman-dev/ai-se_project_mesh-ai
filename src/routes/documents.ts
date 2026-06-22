@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploadDocument, listDocuments, fetchDocument, deleteDocument, patchDocument, uploadDocumentIngest } from "../controllers/documents.js";
+import { uploadDocument, listDocuments, fetchDocument, deleteDocument, uploadDocumentIngest } from "../controllers/documents.js";
 import { auth } from '../middleware/auth.js';
 import multer from "multer";
 
@@ -13,6 +13,5 @@ documentsRouter.post("/", upload.single('file'), uploadDocument);
 documentsRouter.get("/", listDocuments);
 documentsRouter.get("/:id", fetchDocument);
 documentsRouter.delete("/:id", deleteDocument);
-documentsRouter.patch('/:id', patchDocument);
 documentsRouter.post("/:id/ingest", uploadDocumentIngest);
 export {documentsRouter};

@@ -2,20 +2,25 @@ import type { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-
-
 import User from '../models/user.js';
 
-export const getCurrentUser = (req: Request, res: Response): void => {
+export const getCurrentUser = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user!.userId;
+
+  if (!userId) {
+    res.status(400).json({
+      success: false,
+      data: null,
+      error: {message: 'Must be logged in'}
+    })
+    return;
+  }
+
+  const user = await User.findOne({_id: userId });
+
   res.status(200).json({
     success: true,
-    data: {
-      userId: "user_001",
-      email: "user@example.com",
-      name: "John Doe",
-      createdAt: "2026-01-01T00:00:00Z"
-    },
+    data: user,
     error: null
   });
 };

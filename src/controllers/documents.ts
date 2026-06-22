@@ -7,6 +7,15 @@ import { chunkText } from '../utils/chunk.js';
 import { createEmbedding } from '../utils/embeddings.js';
 
 export const uploadDocument = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user!.userId;
+
+  if (!userId) {
+    res.status(400).json({
+      success: false,
+      data: null,
+      error: {message: 'Must be logged in'}
+    });
+  }
 
  if (!req.file) {
    res.status(400).send({
@@ -51,13 +60,21 @@ export const uploadDocument = async (req: Request, res: Response): Promise<void>
 export const uploadDocumentIngest = (req: Request, res: Response): void => {
   res.status(202).json({
     success: true,
-    data: {},
+    data: null,
     error: null
   });
 };
 
 export const listDocuments = async (req: Request, res: Response): Promise<void> => {
   const userId = req.user!.userId;
+
+  if (!userId) {
+    res.status(400).json({
+      success: false,
+      data: null,
+      error: {message: 'Must be logged in'}
+    });
+  }
  
   const documents = await Document.find({ userId });
  
@@ -68,26 +85,63 @@ export const listDocuments = async (req: Request, res: Response): Promise<void> 
    });
 };
 
-export const fetchDocument = (req: Request, res: Response): void => {
+export const fetchDocument = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user!.userId;
+  
+  if (!userId) {
+    res.status(400).json({
+      success: false,
+      data: null,
+      error: {message: 'Must be logged in'}
+    });
+  }
+
+  const document = await Document.findOne({ _id: req.params.id, userId });
+  
+  if (!document) {
+    res.status(404).json({
+    success: false,
+    data: {},
+    error: {message: 'Document not found'}
+    });
+    return;
+  }
+  
   res.status(200).json({
     success: true,
-    data: {},
+    data: document,
     error: null
   });
 };
 
-export const deleteDocument = (req: Request, res: Response): void => {
-  res.status(204).json({
-    success: true,
-    data: {},
-    error: null
-  });
-};
+export const deleteDocument = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user!.userId;
+  
+    if (!userId) {
+      res.status(400).json({
+        success: false,
+        data: null,
+        error: {message: 'Must be logged in'}
+      });
+    }
+  
+    const document = await Document.findOne({ _id: req.params.id, userId });
+  
+    if (!document) {
+      res.status(404).json({
+        success: false,
+        data: {},
+        error: {message: 'Chat not found'}
+      });
+      return;
+    }
+  
+    await document.deleteOne();
+  
+    res.status(200).json({
+      success: true,
+      data: document,
+      error: null
+    });
+  };
 
-export const patchDocument = (req: Request, res: Response): void => {
-  res.status(200).json({
-    success: true,
-    data: {},
-    error: null
-  });
-};

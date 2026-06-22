@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getChats, createChat, getChatById, deleteChat, sendMessage, patchMessage} from '../controllers/chats.js';
+import { getChats, createChat, getChatById, deleteChat} from '../controllers/chats.js';
 import { auth } from '../middleware/auth.js';
 import { createMessage } from '../controllers/messages.js';
 
@@ -12,6 +12,5 @@ chatsRouter.post('/', createChat);
 chatsRouter.get('/:id', getChatById);
 chatsRouter.delete('/:id', deleteChat);
 chatsRouter.post('/:id/messages', createMessage);
-chatsRouter.patch('/:id', patchMessage);
 
 export {chatsRouter};
