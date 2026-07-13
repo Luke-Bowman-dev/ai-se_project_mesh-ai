@@ -1,0 +1,7 @@
+.app {
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

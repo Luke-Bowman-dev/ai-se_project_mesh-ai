@@ -1,0 +1,106 @@
+.knowledge-base {
+  max-width: 670px;
+  height: 380px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.knowledge-base__title {
+  font-family: Space Grotesk;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  margin-top: 0px;
+  margin-bottom: 32px;
+}
+
+.knowledge-base__content__description {
+  margin-top: 0px;
+  margin-bottom: 12px;
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.knowledge-base__content__library {
+  display: flex;
+  margin-top: 12px;
+  margin-bottom: 32px;
+  gap: 12px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.knowledge-base__content__btn {
+  max-width: 74px;
+  height: 44px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background-color: #1c1c1c;
+  color: #ffffff;
+  font-family: Work Sans;
+  font-weight: 500;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.knowledge-base__content__btn:hover {
+  background:
+    linear-gradient(
+      360deg,
+      rgba(150, 121, 217, 0.4) 0%,
+      rgba(150, 121, 217, 0) 100%
+    ),
+    linear-gradient(0deg, #1c1c1c, #1c1c1c);
+}
+
+.knowledge-base__content__library__status {
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.knowledge-base__content__library__error {
+  font-family: Work Sans;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 18px;
+  color: #e36161;
+}
+
+.knowledge-base__content__library__document {
+  display: inline-flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: max-content;
+  height: 44px;
+  white-space: nowrap;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: #1c1c1c0d;
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  vertical-align: bottom;
+}
+
+.knowledge-base__content__library__document__close-button {
+  max-width: 16px;
+  height: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.knowledge-base__content__library__document__close-button:hover {
+  opacity: 30%;
+}
