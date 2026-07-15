@@ -1,0 +1,36 @@
+.header {
+  width: 100%;
+  height: 56px;
+  padding: 12px 20px 12px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__logo {
+  max-width: 99px;
+  width: 100%;
+  height: 26px;
+}
+
+.header__nav {
+  gap: 28px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header__nav-link {
+  color: inherit;
+  text-decoration: none;
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  padding: 8px 12px 8px 12px;
+  margin: 0;
+}
+
+.header__nav-link_active {
+  background: #9679d933;
+  height: 36px;
+  border-radius: 4px;
+}
