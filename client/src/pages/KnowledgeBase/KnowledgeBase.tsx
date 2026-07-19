@@ -22,7 +22,7 @@ export default function KnowledgeBase() {
         setDocuments([]);
       }
     } catch {
-      setError("Failed to load documents.")
+      setError("Failed to load documents.");
     } finally {
       setIsLoading(false);
     }
