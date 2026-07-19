@@ -4,6 +4,7 @@
   padding: 12px 20px 12px 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .header__logo {
@@ -33,4 +34,51 @@
   background: #9679d933;
   height: 36px;
   border-radius: 4px;
+}
+
+.header__menu-btn {
+  display: none;
+  width: 24px;
+  height: 24px;
+  background-image: url('../../assets/icon.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media (max-width: 1200px) {
+  .header {
+    justify-content: flex-start;
+    gap: 12px;
+    border-bottom: 1px solid rgb(0 0 0 / 0.1);
+  }
+
+  .header__menu-btn {
+    display: block;
+  }
+
+  .header__logo {
+  }
+
+  /* Nav is hidden by default on mobile */
+  .header__nav {
+    position: fixed;
+    top: 47px;
+    bottom: 0;
+    left: 0;
+    width: 75%;
+    max-width: 255px;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 101;
+    display: none;
+    border-top: 1px solid rgb(0 0 0 / 0.1);
+    background-color: #fff;
+    justify-content: end;
+    /* Add padding and gap according to Figma */
+  }
+
+  /* Shown when the menu is open */
+  .header__nav_mobile {
+    display: flex;
+  }
 }

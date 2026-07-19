@@ -5,6 +5,12 @@ import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import errorIcon from "../../assets/error-icon.png";
 import sendIcon from "../../assets/send-icon.png";
+import { useOutletContext } from "react-router-dom";
+
+type MobileContext = {
+ isMobileMenuOpen: boolean;
+ setIsMobileMenuOpen: (open: boolean) => void;
+}
 
 export default function Chat() {
   const [chats, setChats] = useState<Chat[]>([]);
@@ -19,6 +25,8 @@ export default function Chat() {
   const [input, setInput] = useState<string>('');
   const [isSending, setIsSending] = useState<boolean>(false);
 
+  const { isMobileMenuOpen, setIsMobileMenuOpen } = useOutletContext<MobileContext>();
+
   const handleCreateChat = async () => {
     const title = newChatTitle.trim() || 'New Chat';
     setIsCreatingChat(false);
@@ -28,6 +36,7 @@ export default function Chat() {
     if (res.data) {
       setChats((prev) => [res.data!, ...prev]);
       setActiveChatId(res.data._id);
+      setIsMobileMenuOpen(false);
     }
     } catch {
     // A toast or inline error could go here in the future
@@ -68,11 +77,6 @@ export default function Chat() {
       setIsSending(false);
     }
   };
-
-
-  function handleOnClick() {
-    setIsCreatingChat(true);
-  }
 
   useEffect(() => {
     const load = async () => {
@@ -128,10 +132,17 @@ export default function Chat() {
   load();
 }, [activeChatId]);
   
+
+
   return (
   <div className="chat">
-    <aside className="chat__sidebar">
-      <button className="chat__new-btn" type="button" onClick={handleOnClick}>
+    <aside className={`chat__sidebar${
+      isMobileMenuOpen ? ' chat__sidebar_open' : ''
+    }`}>
+      <button className="chat__new-btn" type="button" onClick={() => {
+ setIsCreatingChat(true);
+ setIsMobileMenuOpen(true);
+}}>
         + New Chat
       </button>
 
@@ -165,7 +176,10 @@ export default function Chat() {
                 ? 'chat__item chat__item_active'
                 : 'chat__item'
             }
-            onClick={() => setActiveChatId(c._id)}
+            onClick={() => {
+              setActiveChatId(c._id);
+              setIsMobileMenuOpen(false);
+            }}
           >
             {c.title}
           </li>
@@ -177,7 +191,15 @@ export default function Chat() {
     {!messagesError && !isLoadingMessages && !activeChatId && (
       <div className="chat__no-messages">
         <p className="chat__no-messages__text">Create a new chat or select an existing chat to start the conversation</p>
-        <button className="chat__no-messages__button" onClick={handleOnClick}>Start New Chat</button>
+        <button 
+          className="chat__no-messages__button" 
+          onClick={() => {
+          setIsCreatingChat(true);
+          setIsMobileMenuOpen(true);
+          }}
+        >
+          Start New Chat
+        </button>
       </div>
     )}
     
@@ -192,7 +214,7 @@ export default function Chat() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                disabled={isSending || !input.trim()}
+                disabled={isSending}
               />
               <button 
                 className="chat__send" 
@@ -237,23 +259,24 @@ export default function Chat() {
                 </li>
               ))}
             </ul>
-
-            <div className="chat__input-bar">
-              <textarea 
-                className="chat__input" 
-                placeholder="Ask any question" 
-                rows={1}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                disabled={isSending} 
-              />
-              <button 
-                className="chat__send" 
-                aria-label="Send message"
-                onClick={handleSend}
-                disabled={isSending || !input.trim()}
-              ><img src={sendIcon} /></button>
+            <div className="chat__input-bar-wrapper">
+              <div className="chat__input-bar">
+                <textarea 
+                  className="chat__input" 
+                  placeholder="Ask any question" 
+                  rows={1}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  disabled={isSending} 
+                />
+                <button 
+                  className="chat__send" 
+                  aria-label="Send message"
+                  onClick={handleSend}
+                  disabled={isSending || !input.trim()}
+                ><img src={sendIcon} /></button>
+              </div>
             </div>
           </>
           
