@@ -56,10 +56,6 @@
     display: block;
   }
 
-  .header__logo {
-  }
-
-  /* Nav is hidden by default on mobile */
   .header__nav {
     position: fixed;
     top: 47px;
@@ -69,16 +65,36 @@
     max-width: 255px;
     flex-direction: column;
     align-items: flex-start;
+    border-top: 1px solid rgb(0 0 0 / 0.1);
+    background-color: #ffffff;
+    justify-content: flex-end;
+    padding: 20px;
+    box-sizing: border-box;
     z-index: 101;
     display: none;
-    border-top: 1px solid rgb(0 0 0 / 0.1);
-    background-color: #fff;
-    justify-content: end;
-    /* Add padding and gap according to Figma */
+    pointer-events: auto;
   }
 
-  /* Shown when the menu is open */
   .header__nav_mobile {
     display: flex;
+  }
+
+  .header__nav_chat-mode {
+    background-color: transparent !important;
+    border: none !important;
+    justify-content: flex-end !important;
+    padding: 16px !important;
+    pointer-events: none;
+  }
+
+  .header__nav_chat-mode .header__nav-link {
+    pointer-events: auto;
+    width: auto;
+    margin-top: 8px;
+  }
+
+  .header__nav-link {
+    width: 100%;
+    box-sizing: border-box;
   }
 }

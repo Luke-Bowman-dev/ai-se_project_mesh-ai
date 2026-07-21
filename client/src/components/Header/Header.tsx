@@ -1,34 +1,39 @@
-import "./Header.css";
-import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import hamburgerButton from "../../assets/hamburger-btn.png";
+import "./Header.css"; 
+import { NavLink, useLocation } from "react-router-dom"; 
+import logo from "../../assets/logo.png"; 
+import hamburgerButton from "../../assets/hamburger-btn.png"; 
 
-type Props = {
- onMenuOpen: () => void;
- onMenuClose: () => void;
- isMobileMenuOpen: boolean;
-};
+type Props = { 
+  onMenuOpen: () => void; 
+  onMenuClose: () => void; 
+  isMobileMenuOpen: boolean; 
+}; 
 
 export default function Header({ onMenuOpen, onMenuClose, isMobileMenuOpen }: Props) {
-  function getNavLinkClass({ isActive }: { isActive: boolean }) {
-   return isActive ? "header__nav-link header__nav-link_active" : "header__nav-link";
+  const location = useLocation(); 
+  const isChatPage = location.pathname.startsWith("/chat");
+
+  function getNavLinkClass({ isActive }: { isActive: boolean }) { 
+    return isActive ? "header__nav-link header__nav-link_active" : "header__nav-link"; 
+  } 
+
+  
+  let navClassName = isMobileMenuOpen ? 'header__nav header__nav_mobile' : 'header__nav';
+  if (isMobileMenuOpen && isChatPage) {
+    navClassName += ' header__nav_chat-mode';
   }
 
-  return (
-    <header className={isMobileMenuOpen ? 'header header_mobile' : 'header'} >
-      <button
-        type="button"
-        className="header__menu-btn"
-        aria-label="Open menu"
-        onClick={onMenuOpen}
-      >
-        <img src={hamburgerButton} />
-      </button>
-      <img src={logo} alt="Mesh AI logo" className="header__logo" />
-      <nav className={isMobileMenuOpen ? 'header__nav header__nav_mobile' : 'header__nav'}>
-        <NavLink to="/knowledge" className={getNavLinkClass} onClick={onMenuClose}>Knowledge Base</NavLink>
-        <NavLink to="/chat" className={getNavLinkClass} onClick={onMenuClose}>Chat</NavLink>
-      </nav>
-    </header>
-  );
+  return ( 
+    <header className={isMobileMenuOpen ? 'header header_mobile' : 'header'} > 
+      <button type="button" className="header__menu-btn" aria-label="Open menu" onClick={onMenuOpen} > 
+        <img src={hamburgerButton} /> 
+      </button> 
+      <img src={logo} alt="Mesh AI logo" className="header__logo" /> 
+      
+      <nav className={navClassName}> 
+        <NavLink to="/knowledge" className={getNavLinkClass} onClick={onMenuClose}>Knowledge Base</NavLink> 
+        <NavLink to="/chat" className={getNavLinkClass} onClick={onMenuClose}>Chat</NavLink> 
+      </nav> 
+    </header> 
+  ); 
 }
