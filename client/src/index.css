@@ -43,3 +43,151 @@ input[type='checkbox'],
 input[type='radio'] {
   cursor: pointer;
 }
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  max-width: 1440px;
+  width: 100%;
+  height: 56px;
+  padding: 12px 20px 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.header__logo {
+  max-width: 99px;
+  width: 100%;
+  height: 26px;
+}
+
+.form {
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 20px 0px #0000001a;
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.form__title {
+  font-family: Space Grotesk;
+  font-weight: 700;
+  font-size: 32px;
+  margin-bottom: 8px;
+  align-self: flex-start;
+}
+
+.form__description {
+  align-self: flex-start;
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+
+.form__nav {
+  max-width: 380px;
+  width: 100%;
+  height: 44px;
+  gap: 12px;
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.form__nav-link {
+  max-width: 184px;
+  width: 100%;
+  height: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #9679d933;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Work Sans;
+  font-weight: 500;
+  font-size: 18px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.form__nav-link_active {
+  background:
+    linear-gradient(0deg, rgba(150, 121, 217, 0.6), rgba(150, 121, 217, 0.6)),
+    linear-gradient(
+      360deg,
+      rgba(150, 121, 217, 0.2) 0%,
+      rgba(245, 245, 245, 0.2) 100%
+    );
+}
+
+.form__input-container {
+  max-width: 380px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 24px;
+}
+
+.form__field-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 18px;
+  height: 77px;
+}
+
+.form__input {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #1c1c1c4d;
+  height: 44px;
+}
+
+.form__submit-btn {
+  height: 44px;
+  max-width: 167px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #1c1c1c;
+  color: #ffffff;
+  align-self: flex-start;
+  font-family: Work Sans;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.form__submit-btn:disabled {
+  background: #1c1c1c80;
+  cursor: default;
+}
+
+.form__error {
+  font-family: Work Sans;
+  font-weight: 400;
+  font-size: 14px;
+  color: #e36161;
+  margin-top: 12px;
+}
