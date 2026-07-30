@@ -2,6 +2,7 @@ import logo from "../../assets/logo.png";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { registerUser } from "../../utils/api";
 
 
 export default function RegisterPage() {
@@ -18,11 +19,10 @@ export default function RegisterPage() {
           event.preventDefault();
           if (!isValid) return;
           try {
-           //add register api here
-           console.log(values);
+           await registerUser(values.name, values.email, values.password);
            navigate('/login');
           } catch (err) {
-              setSubmitError(err instanceof Error ? err.message : 'Something went wrong');
+            setSubmitError(err instanceof Error ? err.message : 'Something went wrong');
           }
           }
 

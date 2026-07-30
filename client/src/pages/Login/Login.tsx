@@ -2,6 +2,8 @@ import logo from "../../assets/logo.png";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { loginUser } from "../../utils/api";
+import { useAuth } from "../../contexts/AuthContext";
 
 
 export default function LoginPage() {
@@ -11,15 +13,18 @@ export default function LoginPage() {
     });
     const [submitError, setSubmitError] = useState('');
 
+    const { login } = useAuth();
     const navigate = useNavigate();
 
   async function handleSubmit(event: React.FormEvent) {
           event.preventDefault();
           if (!isValid) return;
           try {
-           //add register api here
-           console.log(values);
-           navigate('/login');
+            const res = await loginUser(values.email, values.password);
+            if (res.data) {
+                login(res.data.token, res.data.user);
+                navigate('/knowledge');
+            }
           } catch (err) {
               setSubmitError(err instanceof Error ? err.message : 'Something went wrong');
           }
