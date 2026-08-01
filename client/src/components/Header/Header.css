@@ -145,7 +145,8 @@
     display: block;
   }
 
-  .header__nav {
+  /* Changed from .header__nav to base .header__group configuration */
+  .header__group {
     position: fixed;
     top: 47px;
     bottom: 0;
@@ -164,11 +165,13 @@
     pointer-events: auto;
   }
 
-  .header__nav_mobile {
+  /* Changed from .header__nav_mobile to toggle menu display */
+  .header__group_mobile {
     display: flex;
   }
 
-  .header__nav_chat-mode {
+  /* Changed from .header__nav_chat-mode to mask out styles inside chat canvas views */
+  .header__group_chat-mode {
     background-color: transparent !important;
     border: none !important;
     justify-content: flex-end !important;
@@ -176,14 +179,28 @@
     pointer-events: none;
   }
 
-  .header__nav_chat-mode .header__nav-link {
+  /* Protects link and dropdown text pointer clicks inside transparent chat mode panels */
+  .header__group_chat-mode .header__nav-link,
+  .header__group_chat-mode .header__dropdown-container {
     pointer-events: auto;
     width: auto;
     margin-top: 8px;
   }
 
+  /* Simple clean block alignment for internal link items */
+  .header__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
   .header__nav-link {
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .header__dropdown-container:has(.header__menu) {
+    margin-bottom: 40px;
   }
 }

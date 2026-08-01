@@ -1,7 +1,7 @@
 import "./Chat.css";
 import { getChats, createChat, getChat, sendMessage } from "../../utils/api";
 import type { Chat, Message } from "../../utils/api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import errorIcon from "../../assets/error-icon.png";
 import sendIcon from "../../assets/send-icon.png";
@@ -24,8 +24,13 @@ export default function Chat() {
   const [messagesError, setMessagesError] = useState<string>('');
   const [input, setInput] = useState<string>('');
   const [isSending, setIsSending] = useState<boolean>(false);
+  const messagesEndRef = useRef<HTMLLIElement>(null);
 
   const { isMobileMenuOpen, setIsMobileMenuOpen } = useOutletContext<MobileContext>();
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  })
 
   const handleCreateChat = async () => {
     const title = newChatTitle.trim() || 'New Chat';
@@ -62,7 +67,10 @@ export default function Chat() {
     try {
       const res = await sendMessage(activeChatId, text);
       if (res.data) {
-        setMessages((prev) => [...prev, res.data!]);
+      setMessages((prev) => [
+          ...prev.filter((m) => m._id !== userMessage._id),
+          ...res.data!,
+      ]);
       }
     } catch {
       const errorMessage: Message = {
@@ -258,6 +266,12 @@ export default function Chat() {
                   )}
                 </li>
               ))}
+              {isSending && (
+                <li className="chat__message chat__message_assistant chat__message_thinking">
+                  Thinking…
+                </li>
+              )}
+              <li ref={messagesEndRef} />
             </ul>
             <div className="chat__input-bar-wrapper">
               <div className="chat__input-bar">

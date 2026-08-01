@@ -212,6 +212,14 @@
   border-radius: 4px;
 }
 
+.chat__message_thinking {
+  font-family: Work Sans;
+  font-weight: 400;
+  font-style: Italic;
+  font-size: 16px;
+  color: #1c1c1c99;
+}
+
 .chat__error {
   display: flex;
   flex-direction: column;
@@ -281,6 +289,18 @@
   justify-content: center;
   padding: 24px 16px;
   box-sizing: border-box;
+}
+
+.chat::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 340px;
+  background: linear-gradient(to bottom, transparent 0%, #fff 35%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .chat__input-bar {

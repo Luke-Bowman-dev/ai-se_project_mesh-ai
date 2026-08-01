@@ -26,9 +26,11 @@ export default function Header({ onMenuOpen, onMenuClose, isMobileMenuOpen }: Pr
   } 
 
   
-  let navClassName = isMobileMenuOpen ? 'header__nav header__nav_mobile' : 'header__nav';
+  let groupClassName = isMobileMenuOpen ? 'header__group header__group_mobile' : 'header__group';
+
+  // 2. If it's the chat page, append your chat-mode styles directly to the group container instead
   if (isMobileMenuOpen && isChatPage) {
-    navClassName += ' header__nav_chat-mode';
+    groupClassName += ' header__group_chat-mode';
   }
 
   const handleLogout = () => {
@@ -44,8 +46,8 @@ export default function Header({ onMenuOpen, onMenuClose, isMobileMenuOpen }: Pr
       <img src={logo} alt="Mesh AI logo" className="header__logo" /> 
 
       {isAuthenticated && (
-        <div className="header__group">
-          <nav className={navClassName}> 
+        <div className={groupClassName}>
+          <nav className="header__nav"> 
             <NavLink to="/knowledge" className={getNavLinkClass} onClick={onMenuClose}>Knowledge Base</NavLink> 
             <NavLink to="/chat" className={getNavLinkClass} onClick={onMenuClose}>Chat</NavLink> 
           </nav>

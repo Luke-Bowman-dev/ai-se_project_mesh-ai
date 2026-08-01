@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { getClient, LLM_MODEL, buildContext } from "../utils/openai-client.js";
+import { getClient, LLM_MODEL, buildContext, stripThinking } from "../utils/openai-client.js";
 import Document from '../models/document.js';
 import Chunk from '../models/chunk.js';
 import { createEmbedding } from '../utils/embeddings.js';
@@ -63,7 +63,7 @@ export const createMessage = async (req: Request, res: Response): Promise<void> 
       temperature: 0.2,
     });
   
-    const answer = response.choices[0]!.message.content ?? 'No answer returned.';
+    const answer = stripThinking(response.choices[0]!.message.content ?? '') || 'No answer returned.';
 
     // Save the user question and the assistant answer as Message documents
     const userMessage = await Message.create({
@@ -80,7 +80,7 @@ export const createMessage = async (req: Request, res: Response): Promise<void> 
 
     res.status(201).json({
       success: true,
-      data: { messages: [userMessage, assistantMessage], chunks: ranked },
+      data: [userMessage, assistantMessage],
       error: null,
     });
 };
