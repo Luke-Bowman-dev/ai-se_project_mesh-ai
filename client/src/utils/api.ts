@@ -309,7 +309,7 @@ export function loginUser(email: string, password: string) {
  }
 
 export function getCurrentUser() {
-  return request<CurrentUser>(`${BASE_URL}/me`, {
+  return request<CurrentUser>(`${BASE_URL}/users/me`, {
     method: "GET",
   });
 }
