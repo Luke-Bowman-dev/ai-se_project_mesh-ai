@@ -2,9 +2,10 @@ import "./UploadArea.css";
 
 type Props = {
   onFileSelect: (file: File) => void;
+  isUploading: boolean;
 };
 
-export default function UploadArea({ onFileSelect }: Props) {
+export default function UploadArea({ onFileSelect, isUploading }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) onFileSelect(file);
@@ -42,11 +43,15 @@ export default function UploadArea({ onFileSelect }: Props) {
         </svg>
         <span>Drag and drop a PDF, or </span>
         <span className="underline">Upload</span>
+        {isUploading && (
+          <div className="upload-area__status">Uploading...</div>
+        )}
         <input
           type="file"
           accept=".pdf"
           className="upload-area__input"
           onChange={handleChange}
+          disabled={isUploading}
         />
       </label>
     </div>

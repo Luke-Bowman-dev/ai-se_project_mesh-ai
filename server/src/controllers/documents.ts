@@ -80,7 +80,7 @@ export const listDocuments = async (req: Request, res: Response): Promise<void> 
  
   res.status(200).json({
     success: true,
-    data: {documents},
+    data: documents,
     error: null
    });
 };

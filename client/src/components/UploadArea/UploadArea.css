@@ -7,7 +7,7 @@
   height: 145px;
   background: #f6f3ff;
   border-radius: 16px;
-  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 120%;
@@ -41,6 +41,12 @@
 
 .upload-area__input {
   display: none;
+}
+
+.upload-area__status {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
 }
 
 @media (max-width: 394px) {
