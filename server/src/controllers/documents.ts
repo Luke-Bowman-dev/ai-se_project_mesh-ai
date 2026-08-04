@@ -131,7 +131,7 @@ export const deleteDocument = async (req: Request, res: Response): Promise<void>
       res.status(404).json({
         success: false,
         data: {},
-        error: {message: 'Chat not found'}
+        error: {message: 'Document not found'}
       });
       return;
     }

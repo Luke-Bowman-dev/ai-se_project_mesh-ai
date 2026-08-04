@@ -16,7 +16,7 @@ export const getCurrentUser = async (req: Request, res: Response): Promise<void>
     return;
   }
 
-  const user = await User.findOne({_id: userId });
+  const user = await User.findOne({ _id: userId }).select('-password');
 
   res.status(200).json({
     success: true,

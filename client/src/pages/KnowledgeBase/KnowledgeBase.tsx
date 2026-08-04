@@ -1,6 +1,6 @@
 import "./KnowledgeBase.css";
 import UploadArea from "../../components/UploadArea/UploadArea";
-import { getDocuments, type KnowledgeDoc, uploadDocument } from "../../utils/api";
+import { getDocuments, type KnowledgeDoc, uploadDocument, deleteDocument } from "../../utils/api";
 import { useState, useEffect } from "react";
 import closeIcon from "../../assets/close-button.svg"
 
@@ -10,6 +10,17 @@ export default function KnowledgeBase() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+
+
+  const handleDelete = async (id: string) => {
+    try {
+      setError(null);
+      await deleteDocument(id);
+      setDocuments(prevDocs => prevDocs.filter(doc => doc._id !== id));
+    } catch {
+      setError('Failed to delete the document.');
+    }
+  };
 
 useEffect(() => {
   const load = async () => {
@@ -69,7 +80,7 @@ useEffect(() => {
                 documents.map((document) => (
                   <li className="knowledge-base__content__library__document" key={document._id}>
                     <p>{document.title}</p>
-                    <button className="knowledge-base__content__library__document__close-button" aria-label="Delete Document">
+                    <button className="knowledge-base__content__library__document__close-button" aria-label="Delete Document" onClick={() => handleDelete(document._id)}>
                       <img className="knowledge-base__content__library__document__close-button__img" src={closeIcon} alt="Close"></img>
                       </button> 
                   </li>

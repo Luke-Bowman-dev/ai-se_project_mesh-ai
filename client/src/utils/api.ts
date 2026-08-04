@@ -92,6 +92,12 @@ export const uploadDocument = async (file: File): Promise<ApiResponse<KnowledgeD
   return res.json();
 };
 
+export const deleteDocument = (id: string): Promise<ApiResponse<{ message: string }>> => {
+  return request<{ message: string }>(`${BASE_URL}/documents/${id}`, {
+    method: "DELETE",
+  });
+};
+
 export const getChats = async () => {
   return request<Chat[]>(`${BASE_URL}/chats`, {
     method: "GET",
