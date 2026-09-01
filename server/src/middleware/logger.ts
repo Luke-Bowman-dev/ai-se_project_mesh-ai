@@ -1,8 +1,8 @@
-import type { Request, Response, NextFunction } from 'express';
+import morgan from 'morgan';
+import type { Request } from 'express';
 
-export const logger = (req: Request, res: Response, next: NextFunction): void => {
-  console.info(new Date().toISOString(),
-  req.method,
-  req.path);
-  next();
-};
+const devFormat = ':method :url :status :response-time ms';
+const isProduction = process.env.NODE_ENV === 'production';
+const logFormat = isProduction? 'combined' : devFormat;
+
+export const RequestLogger = morgan(logFormat);

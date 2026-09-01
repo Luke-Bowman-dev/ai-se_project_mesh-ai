@@ -5,6 +5,7 @@ import Document from '../models/document.js';
 import Chunk from '../models/chunk.js';
 import { chunkText } from '../utils/chunk.js';
 import { createEmbedding } from '../utils/embeddings.js';
+import { getCacheValue, setCacheValue, deleteCacheValue } from '../utils/cache.js';
 
 export const uploadDocument = async (req: Request, res: Response): Promise<void> => {
   const userId = req.user!.userId;
@@ -50,11 +51,13 @@ export const uploadDocument = async (req: Request, res: Response): Promise<void>
     )
   );
 
- res.status(201).send({
-   success: true,
-   data: document,
-   error: null,
- });
+  deleteCacheValue(`documents-list:${req.user!.userId}`);
+
+  res.status(201).send({
+    success: true,
+    data: document,
+    error: null,
+  });
 };
 
 export const uploadDocumentIngest = (req: Request, res: Response): void => {
@@ -67,6 +70,8 @@ export const uploadDocumentIngest = (req: Request, res: Response): void => {
 
 export const listDocuments = async (req: Request, res: Response): Promise<void> => {
   const userId = req.user!.userId;
+  const cacheKey = `documents-list:${req.user!.userId}`;
+  const cached = getCacheValue(cacheKey);
 
   if (!userId) {
     res.status(400).json({
@@ -75,14 +80,18 @@ export const listDocuments = async (req: Request, res: Response): Promise<void> 
       error: {message: 'Must be logged in'}
     });
   }
+
+  if (cached) {
+    res.status(200).json(cached);
+    return;
+  }
  
   const documents = await Document.find({ userId });
+
+  const responseData = { success: true, data: documents, error: null };
+  setCacheValue(cacheKey, responseData, 30 * 1000);
  
-  res.status(200).json({
-    success: true,
-    data: documents,
-    error: null
-   });
+  res.status(200).json(responseData);
 };
 
 export const fetchDocument = async (req: Request, res: Response): Promise<void> => {
@@ -137,6 +146,8 @@ export const deleteDocument = async (req: Request, res: Response): Promise<void>
     }
   
     await document.deleteOne();
+
+    deleteCacheValue(`documents-list:${req.user!.userId}`);
   
     res.status(200).json({
       success: true,

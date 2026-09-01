@@ -8,6 +8,8 @@
     "concurrently": "^10.0.3"
   },
   "dependencies": {
-    "react-hook-form": "^7.83.0"
+    "cross-env": "^10.1.0",
+    "react-hook-form": "^7.83.0",
+    "winston": "^3.19.0"
   }
 }
