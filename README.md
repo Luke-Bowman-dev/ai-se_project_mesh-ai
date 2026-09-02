@@ -35,3 +35,9 @@ Prerequisites: Node.js 20+, Docker
 | `NEBIUS_API_KEY` | API key for the Nebius AI service             |
 | `MONGO_URI`      | MongoDB connection string                     |
 | `SITE_ADDRESS`   | Domain name used by Caddy (production only)   |
+
+## Project Pitch Video
+
+Check out this video, where I describe my
+project and some challenges I faced while building it.
+<https://drive.google.com/file/d/10wqFYKnL2dJWW8F6V6SwRydISjGgd0qA/view?usp=sharing>
